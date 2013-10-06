@@ -7,7 +7,20 @@ class MoviesController < ApplicationController
   end
   
   def index
-    @movies = Movie.order(params[:OrderBy])
+  	@all_ratings = Movie.getUniqueMovieRatings
+  	if(params[:ratings])
+  		#queryString = "rating = ?"
+  		#firstPass = true
+  		#params[:ratings].keys.each do |temp|
+  			#if(!firstPass)
+  				#queryString += " OR rating = ?"
+  			#end
+  			#firstPass = false
+  		#end
+    	@movies = Movie.where(rating: params[:ratings].keys).order(params[:OrderBy])
+    else
+    	@movies = Movie.order(params[:OrderBy])
+    end
     @hilitedColumn = params[:OrderBy]
   end
 
