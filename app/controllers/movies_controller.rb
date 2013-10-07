@@ -8,15 +8,8 @@ class MoviesController < ApplicationController
   
   def index
   	@all_ratings = Movie.getUniqueMovieRatings
+  	@selected_ratings = params[:ratings].keys
   	if(params[:ratings])
-  		#queryString = "rating = ?"
-  		#firstPass = true
-  		#params[:ratings].keys.each do |temp|
-  			#if(!firstPass)
-  				#queryString += " OR rating = ?"
-  			#end
-  			#firstPass = false
-  		#end
     	@movies = Movie.where(rating: params[:ratings].keys).order(params[:OrderBy])
     else
     	@movies = Movie.order(params[:OrderBy])
