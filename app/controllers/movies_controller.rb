@@ -8,12 +8,19 @@ class MoviesController < ApplicationController
   
   def index
   	@all_ratings = Movie.getUniqueMovieRatings
-  	@selected_ratings = params[:ratings].keys
-  	if(params[:ratings])
+  	
+  	
+  	if(@selected_ratings == nil)
+  		@selected_ratings = @all_ratings
+  	end
+  	
+  	#if(params[:ratings])
     	@movies = Movie.where(rating: params[:ratings].keys).order(params[:OrderBy])
-    else
-    	@movies = Movie.order(params[:OrderBy])
-    end
+    	@selected_ratings = params[:ratings].keys
+    #else
+    	#@movies = Movie.where(rating: @selected_ratings).order(params[:OrderBy])
+    	#@selected_ratings = @all_ratings
+    #end
     @hilitedColumn = params[:OrderBy]
   end
 
